@@ -1,0 +1,9 @@
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Sam-Waithaka/siq_frontend.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Sam-Waithaka/siq_backend.git
+[submodule "ml_and_ai_integration"]
+	path = ml_and_ai_integration
+	url = https://github.com/Sam-Waithaka/siq_ml_and_ai_integration.git
