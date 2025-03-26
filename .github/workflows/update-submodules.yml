@@ -1,0 +1,34 @@
+name: Auto-Update Submodules
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Monorepo with Submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Submodules to Latest Commits
+        run: |
+          git submodule update --remote --recursive
+          git status
+
+      - name: Commit and Push Updated Submodules
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "Auto-update submodules to latest commits"
+            git push origin main
+          else
+            echo "No submodule updates."
+          fi
